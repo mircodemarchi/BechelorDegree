@@ -1,0 +1,1291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.9" />
+<title>Hints for Task 2</title>
+<style type="text/css">
+/* Shared CSS for AsciiDoc xhtml11 and html5 backends */
+
+/* Default font. */
+body {
+  font-family: Georgia,serif;
+}
+
+/* Title font. */
+h1, h2, h3, h4, h5, h6,
+div.title, caption.title,
+thead, p.table.header,
+#toctitle,
+#author, #revnumber, #revdate, #revremark,
+#footer {
+  font-family: Arial,Helvetica,sans-serif;
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+a:visited {
+  color: fuchsia;
+}
+
+em {
+  font-style: italic;
+  color: navy;
+}
+
+strong {
+  font-weight: bold;
+  color: #083194;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1, h2, h3 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  padding-top: 0.5em;
+}
+h3 {
+  float: left;
+}
+h3 + * {
+  clear: left;
+}
+h5 {
+  font-size: 1.0em;
+}
+
+div.sectionbody {
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+ul, ol, li > p {
+  margin-top: 0;
+}
+ul > li     { color: #aaa; }
+ul > li > * { color: black; }
+
+.monospaced, code, pre {
+  font-family: "Courier New", Courier, monospace;
+  font-size: inherit;
+  color: navy;
+  padding: 0;
+  margin: 0;
+}
+pre {
+  white-space: pre-wrap;
+}
+
+#author {
+  color: #527bbd;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+#email {
+}
+#revnumber, #revdate, #revremark {
+}
+
+#footer {
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+#preamble {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.0em;
+  margin-bottom: 2.0em;
+  margin-right: 10%;
+  color: #606060;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  color: #527bbd;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid #dddddd;
+  border-left: 4px solid #f0f0f0;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid #dddddd;
+  border-left: 5px solid #f0f0f0;
+  background: #f8f8f8;
+  padding: 0.5em;
+}
+
+div.quoteblock, div.verseblock {
+  padding-left: 1.0em;
+  margin-left: 1.0em;
+  margin-right: 10%;
+  border-left: 5px solid #f0f0f0;
+  color: #888;
+}
+
+div.quoteblock > div.attribution {
+  padding-top: 0.5em;
+  text-align: right;
+}
+
+div.verseblock > pre.content {
+  font-family: inherit;
+  font-size: inherit;
+}
+div.verseblock > div.attribution {
+  padding-top: 0.75em;
+  text-align: left;
+}
+/* DEPRECATED: Pre version 8.2.7 verse style literal block. */
+div.verseblock + div.attribution {
+  text-align: left;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 3px solid #dddddd;
+}
+
+div.exampleblock > div.content {
+  border-left: 3px solid #dddddd;
+  padding-left: 0.5em;
+}
+
+div.imageblock div.content { padding-left: 0; }
+span.image img { border-style: none; vertical-align: text-bottom; }
+a.image:visited { color: white; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: normal;
+  color: navy;
+}
+dd > *:first-child {
+  margin-top: 0.1em;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.arabic {
+  list-style-type: decimal;
+}
+ol.loweralpha {
+  list-style-type: lower-alpha;
+}
+ol.upperalpha {
+  list-style-type: upper-alpha;
+}
+ol.lowerroman {
+  list-style-type: lower-roman;
+}
+ol.upperroman {
+  list-style-type: upper-roman;
+}
+
+div.compact ul, div.compact ol,
+div.compact p, div.compact p,
+div.compact div, div.compact div {
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+}
+
+tfoot {
+  font-weight: bold;
+}
+td > div.verse {
+  white-space: pre;
+}
+
+div.hdlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+div.hdlist tr {
+  padding-bottom: 15px;
+}
+dt.hdlist1.strong, td.hdlist1.strong {
+  font-weight: bold;
+}
+td.hdlist1 {
+  vertical-align: top;
+  font-style: normal;
+  padding-right: 0.8em;
+  color: navy;
+}
+td.hdlist2 {
+  vertical-align: top;
+}
+div.hdlist.compact tr {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.comment {
+  background: yellow;
+}
+
+.footnote, .footnoteref {
+  font-size: 0.8em;
+}
+
+span.footnote, span.footnoteref {
+  vertical-align: super;
+}
+
+#footnotes {
+  margin: 20px 0 20px 0;
+  padding: 7px 0 0 0;
+}
+
+#footnotes div.footnote {
+  margin: 0 0 5px 0;
+}
+
+#footnotes hr {
+  border: none;
+  border-top: 1px solid silver;
+  height: 1px;
+  text-align: left;
+  margin-left: 0;
+  width: 20%;
+  min-width: 100px;
+}
+
+div.colist td {
+  padding-right: 0.5em;
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+div.colist td img {
+  margin-top: 0.3em;
+}
+
+@media print {
+  #footer-badges { display: none; }
+}
+
+#toc {
+  margin-bottom: 2.5em;
+}
+
+#toctitle {
+  color: #527bbd;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 1.0em;
+  margin-bottom: 0.1em;
+}
+
+div.toclevel0, div.toclevel1, div.toclevel2, div.toclevel3, div.toclevel4 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+div.toclevel2 {
+  margin-left: 2em;
+  font-size: 0.9em;
+}
+div.toclevel3 {
+  margin-left: 4em;
+  font-size: 0.9em;
+}
+div.toclevel4 {
+  margin-left: 6em;
+  font-size: 0.9em;
+}
+
+span.aqua { color: aqua; }
+span.black { color: black; }
+span.blue { color: blue; }
+span.fuchsia { color: fuchsia; }
+span.gray { color: gray; }
+span.green { color: green; }
+span.lime { color: lime; }
+span.maroon { color: maroon; }
+span.navy { color: navy; }
+span.olive { color: olive; }
+span.purple { color: purple; }
+span.red { color: red; }
+span.silver { color: silver; }
+span.teal { color: teal; }
+span.white { color: white; }
+span.yellow { color: yellow; }
+
+span.aqua-background { background: aqua; }
+span.black-background { background: black; }
+span.blue-background { background: blue; }
+span.fuchsia-background { background: fuchsia; }
+span.gray-background { background: gray; }
+span.green-background { background: green; }
+span.lime-background { background: lime; }
+span.maroon-background { background: maroon; }
+span.navy-background { background: navy; }
+span.olive-background { background: olive; }
+span.purple-background { background: purple; }
+span.red-background { background: red; }
+span.silver-background { background: silver; }
+span.teal-background { background: teal; }
+span.white-background { background: white; }
+span.yellow-background { background: yellow; }
+
+span.big { font-size: 2em; }
+span.small { font-size: 0.6em; }
+
+span.underline { text-decoration: underline; }
+span.overline { text-decoration: overline; }
+span.line-through { text-decoration: line-through; }
+
+div.unbreakable { page-break-inside: avoid; }
+
+
+/*
+ * xhtml11 specific
+ *
+ * */
+
+div.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+div.tableblock > table {
+  border: 3px solid #527bbd;
+}
+thead, p.table.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.table {
+  margin-top: 0;
+}
+/* Because the table frame attribute is overriden by CSS in most browsers. */
+div.tableblock > table[frame="void"] {
+  border-style: none;
+}
+div.tableblock > table[frame="hsides"] {
+  border-left-style: none;
+  border-right-style: none;
+}
+div.tableblock > table[frame="vsides"] {
+  border-top-style: none;
+  border-bottom-style: none;
+}
+
+
+/*
+ * html5 specific
+ *
+ * */
+
+table.tableblock {
+  margin-top: 1.0em;
+  margin-bottom: 1.5em;
+}
+thead, p.tableblock.header {
+  font-weight: bold;
+  color: #527bbd;
+}
+p.tableblock {
+  margin-top: 0;
+}
+table.tableblock {
+  border-width: 3px;
+  border-spacing: 0px;
+  border-style: solid;
+  border-color: #527bbd;
+  border-collapse: collapse;
+}
+th.tableblock, td.tableblock {
+  border-width: 1px;
+  padding: 4px;
+  border-style: solid;
+  border-color: #527bbd;
+}
+
+table.tableblock.frame-topbot {
+  border-left-style: hidden;
+  border-right-style: hidden;
+}
+table.tableblock.frame-sides {
+  border-top-style: hidden;
+  border-bottom-style: hidden;
+}
+table.tableblock.frame-none {
+  border-style: hidden;
+}
+
+th.tableblock.halign-left, td.tableblock.halign-left {
+  text-align: left;
+}
+th.tableblock.halign-center, td.tableblock.halign-center {
+  text-align: center;
+}
+th.tableblock.halign-right, td.tableblock.halign-right {
+  text-align: right;
+}
+
+th.tableblock.valign-top, td.tableblock.valign-top {
+  vertical-align: top;
+}
+th.tableblock.valign-middle, td.tableblock.valign-middle {
+  vertical-align: middle;
+}
+th.tableblock.valign-bottom, td.tableblock.valign-bottom {
+  vertical-align: bottom;
+}
+
+
+/*
+ * manpage specific
+ *
+ * */
+
+body.manpage h1 {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-top: 2px solid silver;
+  border-bottom: 2px solid silver;
+}
+body.manpage h2 {
+  border-style: none;
+}
+body.manpage div.sectionbody {
+  margin-left: 3em;
+}
+
+@media print {
+  body.manpage div#toc { display: none; }
+}
+
+
+</style>
+<script type="text/javascript">
+/*<![CDATA[*/
+var asciidoc = {  // Namespace.
+
+/////////////////////////////////////////////////////////////////////
+// Table Of Contents generator
+/////////////////////////////////////////////////////////////////////
+
+/* Author: Mihai Bazon, September 2002
+ * http://students.infoiasi.ro/~mishoo
+ *
+ * Table Of Content generator
+ * Version: 0.4
+ *
+ * Feel free to use this script under the terms of the GNU General Public
+ * License, as long as you do not remove or alter this notice.
+ */
+
+ /* modified by Troy D. Hanson, September 2006. License: GPL */
+ /* modified by Stuart Rackham, 2006, 2009. License: GPL */
+
+// toclevels = 1..4.
+toc: function (toclevels) {
+
+  function getText(el) {
+    var text = "";
+    for (var i = el.firstChild; i != null; i = i.nextSibling) {
+      if (i.nodeType == 3 /* Node.TEXT_NODE */) // IE doesn't speak constants.
+        text += i.data;
+      else if (i.firstChild != null)
+        text += getText(i);
+    }
+    return text;
+  }
+
+  function TocEntry(el, text, toclevel) {
+    this.element = el;
+    this.text = text;
+    this.toclevel = toclevel;
+  }
+
+  function tocEntries(el, toclevels) {
+    var result = new Array;
+    var re = new RegExp('[hH]([1-'+(toclevels+1)+'])');
+    // Function that scans the DOM tree for header elements (the DOM2
+    // nodeIterator API would be a better technique but not supported by all
+    // browsers).
+    var iterate = function (el) {
+      for (var i = el.firstChild; i != null; i = i.nextSibling) {
+        if (i.nodeType == 1 /* Node.ELEMENT_NODE */) {
+          var mo = re.exec(i.tagName);
+          if (mo && (i.getAttribute("class") || i.getAttribute("className")) != "float") {
+            result[result.length] = new TocEntry(i, getText(i), mo[1]-1);
+          }
+          iterate(i);
+        }
+      }
+    }
+    iterate(el);
+    return result;
+  }
+
+  var toc = document.getElementById("toc");
+  if (!toc) {
+    return;
+  }
+
+  // Delete existing TOC entries in case we're reloading the TOC.
+  var tocEntriesToRemove = [];
+  var i;
+  for (i = 0; i < toc.childNodes.length; i++) {
+    var entry = toc.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div'
+     && entry.getAttribute("class")
+     && entry.getAttribute("class").match(/^toclevel/))
+      tocEntriesToRemove.push(entry);
+  }
+  for (i = 0; i < tocEntriesToRemove.length; i++) {
+    toc.removeChild(tocEntriesToRemove[i]);
+  }
+
+  // Rebuild TOC entries.
+  var entries = tocEntries(document.getElementById("content"), toclevels);
+  for (var i = 0; i < entries.length; ++i) {
+    var entry = entries[i];
+    if (entry.element.id == "")
+      entry.element.id = "_toc_" + i;
+    var a = document.createElement("a");
+    a.href = "#" + entry.element.id;
+    a.appendChild(document.createTextNode(entry.text));
+    var div = document.createElement("div");
+    div.appendChild(a);
+    div.className = "toclevel" + entry.toclevel;
+    toc.appendChild(div);
+  }
+  if (entries.length == 0)
+    toc.parentNode.removeChild(toc);
+},
+
+
+/////////////////////////////////////////////////////////////////////
+// Footnotes generator
+/////////////////////////////////////////////////////////////////////
+
+/* Based on footnote generation code from:
+ * http://www.brandspankingnew.net/archive/2005/07/format_footnote.html
+ */
+
+footnotes: function () {
+  // Delete existing footnote entries in case we're reloading the footnodes.
+  var i;
+  var noteholder = document.getElementById("footnotes");
+  if (!noteholder) {
+    return;
+  }
+  var entriesToRemove = [];
+  for (i = 0; i < noteholder.childNodes.length; i++) {
+    var entry = noteholder.childNodes[i];
+    if (entry.nodeName.toLowerCase() == 'div' && entry.getAttribute("class") == "footnote")
+      entriesToRemove.push(entry);
+  }
+  for (i = 0; i < entriesToRemove.length; i++) {
+    noteholder.removeChild(entriesToRemove[i]);
+  }
+
+  // Rebuild footnote entries.
+  var cont = document.getElementById("content");
+  var spans = cont.getElementsByTagName("span");
+  var refs = {};
+  var n = 0;
+  for (i=0; i<spans.length; i++) {
+    if (spans[i].className == "footnote") {
+      n++;
+      var note = spans[i].getAttribute("data-note");
+      if (!note) {
+        // Use [\s\S] in place of . so multi-line matches work.
+        // Because JavaScript has no s (dotall) regex flag.
+        note = spans[i].innerHTML.match(/\s*\[([\s\S]*)]\s*/)[1];
+        spans[i].innerHTML =
+          "[<a id='_footnoteref_" + n + "' href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+        spans[i].setAttribute("data-note", note);
+      }
+      noteholder.innerHTML +=
+        "<div class='footnote' id='_footnote_" + n + "'>" +
+        "<a href='#_footnoteref_" + n + "' title='Return to text'>" +
+        n + "</a>. " + note + "</div>";
+      var id =spans[i].getAttribute("id");
+      if (id != null) refs["#"+id] = n;
+    }
+  }
+  if (n == 0)
+    noteholder.parentNode.removeChild(noteholder);
+  else {
+    // Process footnoterefs.
+    for (i=0; i<spans.length; i++) {
+      if (spans[i].className == "footnoteref") {
+        var href = spans[i].getElementsByTagName("a")[0].getAttribute("href");
+        href = href.match(/#.*/)[0];  // Because IE return full URL.
+        n = refs[href];
+        spans[i].innerHTML =
+          "[<a href='#_footnote_" + n +
+          "' title='View footnote' class='footnote'>" + n + "</a>]";
+      }
+    }
+  }
+},
+
+install: function(toclevels) {
+  var timerId;
+
+  function reinstall() {
+    asciidoc.footnotes();
+    if (toclevels) {
+      asciidoc.toc(toclevels);
+    }
+  }
+
+  function reinstallAndRemoveTimer() {
+    clearInterval(timerId);
+    reinstall();
+  }
+
+  timerId = setInterval(reinstall, 500);
+  if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", reinstallAndRemoveTimer, false);
+  else
+    window.onload = reinstallAndRemoveTimer;
+}
+
+}
+asciidoc.install();
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Hints for Task 2</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph"><p>This document contains hints and guidelines for solving task 2 of the
+project task for the 2015 iteration of the course Introduction to
+Compilers at DIKU.</p></div>
+<div class="paragraph"><p>You are not required to follow these hints, but you are strongly
+encouraged to do so.  (If you choose not to, you will be on the
+threshold where strong bravery turns into unjustified fearlessness.)</p></div>
+<div class="paragraph"><p>This task involves implementing three array combinators (special
+array-oriented functions): <code>iota</code>, <code>map</code>, and <code>reduce</code>.</p></div>
+<div class="paragraph"><p>This is the big one.  Compare it to task 1 and task 3:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+While you are indeed asked to make a lot of modifications in task 1,
+  none of the individual modifications require large code insertions.
+  Task 1 has many, small tasks.
+</p>
+</li>
+<li>
+<p>
+Task 3 requires you to complete an optimization, which may not
+  require extremely much code, but does involve thinking a lot about
+  recursion.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Task 2 asks you to make fundamental additions to your Fasto compiler,
+and write a lot of code.  To get you properly started on this large
+task, we essentially provide you with a solution for <code>iota</code>.  However,
+we don&#8217;t hand it out directly.  Instead we ask you to follow this
+guide, which will tell you which code to insert where, how to test
+that the new code works, and why it works.</p></div>
+<div class="paragraph"><p>Once you have implemented <code>iota</code> by following our very detailed guide,
+you&#8217;re much more on your own with <code>map</code> and <code>reduce</code>&#8201;&#8212;&#8201;however, those
+two combinators share many features with <code>iota</code>, so we hope that
+you&#8217;ll have an idea of how to progress.</p></div>
+<div class="paragraph"><p><strong>If you find any errors in this text, please tell us!</strong></p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview_of_code_iota_code_code_map_code_and_code_reduce_code">Overview of <code>iota</code>, <code>map</code> and <code>reduce</code></h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Before you hack away on <code>iota</code>, here is a quick overview of the three
+array combinators.  Remember to also read the group project PDF file,
+which provides more theoretical detail.</p></div>
+<div class="sect2">
+<h3 id="_code_iota_code"><code>iota</code></h3>
+<div class="paragraph"><p>Type: <code>int -&gt; [int]</code></p></div>
+<div class="paragraph"><p>Result for <code>iota(n)</code>: <code>[0, 1, ..., n - 2, n - 1]</code></p></div>
+<div class="paragraph"><p>Example: <code>iota(5)</code> should return <code>[0, 1, 2, 3, 4]</code>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_code_map_code"><code>map</code></h3>
+<div class="paragraph"><p>Type: <code>(a -&gt; b) -&gt; [a] -&gt; [b]</code></p></div>
+<div class="paragraph"><p>This has the same semantics as the <code>map</code> function in SML.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_code_reduce_code"><code>reduce</code></h3>
+<div class="paragraph"><p>Type: <code>(a * a -&gt; a) -&gt; a * [a] -&gt; a</code></p></div>
+<div class="paragraph"><p>Result for <code>reduce(f, x, [])</code>: <code>x</code></p></div>
+<div class="paragraph"><p>Result for <code>reduce(f, x, [y0])</code>: <code>f(x, y0)</code></p></div>
+<div class="paragraph"><p>Result for <code>reduce(f, x, [y0, y1])</code>: <code>f(f(x, y0), y1)</code></p></div>
+<div class="paragraph"><p>And so on.</p></div>
+<div class="paragraph"><p>You may have noticed that this seems very similar to the SML function
+<code>foldl</code>.  <code>foldl</code> is actually a more general function, meaning it can
+do more than <code>reduce</code>.  It is perfectly fine to use <code>foldl</code> to
+implement <code>reduce</code> in your interpreter, or to just get inspired.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_testing_your_solution">Testing your solution</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>We provide several tests for <code>iota</code>, <code>map</code> and <code>reduce</code>.  Once your
+solution passes all the relevant tests, great!  But please write your
+own test programs as well.  One can always write more tests.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_grand_guide_to_implementing_code_iota_code">The grand guide to implementing <code>iota</code></h2>
+<div class="sectionbody">
+<div class="paragraph"><p>First, let&#8217;s consider which parts of the compiler will need to be modified.
+<code>iota</code> isn&#8217;t just a new operator, a group of new literals or an improved
+optimization; it is an entirely new language construct.  There is no way to
+implement something similar to <code>iota</code> in a Fasto program with existing
+constructs only.  Think about that.</p></div>
+<div class="paragraph"><p>These are the files that you will need to modify:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>Lexer.lex</code>
+</p>
+</li>
+<li>
+<p>
+<code>Parser.grm</code>
+</p>
+</li>
+<li>
+<p>
+<code>TypeChecker.sml</code>
+</p>
+</li>
+<li>
+<p>
+<code>Interpreter.sml</code>
+</p>
+</li>
+<li>
+<p>
+<code>CodeGen.sml</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>It&#8217;s the same files as in task 1.  The difference is that you&#8217;ll write much more
+code.</p></div>
+<div class="paragraph"><p>Here&#8217;s is a file that you specifically should <strong>not</strong> modify:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>Fasto.sml</code>
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>This is because we have been kind enough to define the relevant constructors
+for you.  From <code>Fasto.sml</code>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>  datatype Exp =
+
+    (* ... *)
+
+    (* The following are project tasks. *)
+    | Iota of Exp * pos                                           (* iota(n) *)
+    | Map of FunArg * Exp * T.TypeAnnot * T.TypeAnnot * pos   (* map(f, arr) *)
+    | Reduce of FunArg * Exp * Exp * T.TypeAnnot * pos  (* reduce(f, 0, arr) *)
+
+    (* ... *)
+
+  and FunArg = Lambda of Type * Param list * Exp * pos
+             | FunName of string</code></pre>
+</div></div>
+<div class="paragraph"><p>This is already done.  It might seem like <code>map</code> and <code>reduce</code> are much more
+complex to implement than <code>iota</code>, since they have all these extra arguments, but
+it&#8217;s mostly in the parser stage that this is very true, but we&#8217;ll get to that.</p></div>
+<div class="sect2">
+<h3 id="_step_0_running_the_compiler">Step 0: Running the compiler</h3>
+<div class="paragraph"><p>Let&#8217;s compile the test program <code>tests/iota.fo</code>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ ./bin/fasto -c tests/iota.fo</code></pre>
+</div></div>
+<div class="paragraph"><p>That should print out this:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Type error: Unknown function iota at line 4, column 11</code></pre>
+</div></div>
+<div class="paragraph"><p>This is because the handed out Fasto compiler has no notion of <code>iota</code>
+and assumes that it&#8217;s just an ordinary function that you&#8217;ve forgotten
+to define.  But it&#8217;s not!  It&#8217;s special!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_step_1_extending_the_lexer">Step 1: Extending the lexer</h3>
+<div class="paragraph"><p>We must tell the compiler to handle <code>iota</code> in our very own way.  In
+<code>Lexer.lex</code>, add</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>       | "iota"         =&gt; Parser.IOTA pos</code></pre>
+</div></div>
+<div class="paragraph"><p>to the <code>fun keyword (s, pos)</code> function.  Then, in <code>Parser.grm</code>, add</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>%token &lt;(int*int)&gt; IOTA</code></pre>
+</div></div>
+<div class="paragraph"><p>to the top section.  This last part is necessary because lexeme names
+are stored in the parser.</p></div>
+<div class="paragraph"><p>Once you have changed these things and recompiled your compiler (using
+<code>make</code>), your lexer now makes sure that <code>iota</code> is handled on its own.
+But it doesn&#8217;t do anything useful yet, and you&#8217;ll get a parse error if
+you try to compile <code>tests/iota.fo</code>.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_extending_the_parser">Step 2: Extending the parser</h3>
+<div class="paragraph"><p>The compiler now reads <code>iota</code> and turns it into <code>Parser.IOTA</code>, but no
+rule in the parser uses that, so the parser will give up on any
+program containing <code>iota</code>.</p></div>
+<div class="paragraph"><p><code>iota(n)</code> is an expression, so we find the <code>Exp :</code> group of rules in
+<code>Parser.grm</code> and add this:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>        | IOTA LPAR Exp RPAR
+                        { Iota ($3, $1) }</code></pre>
+</div></div>
+<div class="paragraph"><p>When you have done this and run the rebuilt compiler, try running
+<code>./bin/fasto -c tests/iota.fo</code> once more.  You should get this back:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>Uncaught exception:
+Fail: Unimplemented feature iota</code></pre>
+</div></div>
+<div class="paragraph"><p>This means that <code>iota</code> is successfully parsed and put into a syntax
+tree, but there&#8217;s no code capable of generating MIPS code for <code>iota</code>.
+You can also try interpreting (<code>./bin/fasto -i tests/iota.fo</code>), which
+will give you the same error message, since there&#8217;s no interpreter
+code either.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_checking_the_types">Step 3: Checking the types</h3>
+<div class="paragraph"><p>Actually, we lied a little in the previous section.  While it might
+make sense that it throws an <code>Unimplemented feature iota</code> error
+because it has no code generation support yet, the error actually
+happens at an earlier state: the type checking.</p></div>
+<div class="paragraph"><p>Before Fasto generates code, it does type checking to make sure that
+the input program makes sense.  In <code>TypeChecker.sml</code>, find this code:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>    | In.Iota (n_exp, pos)
+      =&gt; raise Fail "Unimplemented feature iota"</code></pre>
+</div></div>
+<div class="paragraph"><p>and replace it with this code:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>    | In.Iota (n_exp, pos)
+      =&gt; let val (e_type, n_exp_dec) = checkExp ftab vtab n_exp
+         in if e_type = Int
+            then (Array Int, Out.Iota (n_exp_dec, pos))
+            else raise Error ("Iota: wrong argument type " ^
+                              ppType e_type, pos)
+         end</code></pre>
+</div></div>
+<div class="paragraph"><p>This piece of code checks that the argument <code>n</code> in <code>iota(n)</code> is an
+integer.  First it needs to find the type of <code>n</code> and also check that
+<strong>that</strong> type checks out&#8201;&#8212;&#8201;it is important that you understand that <code>n</code>
+can be any expression of type <code>int</code>, and not just a plain integer.
+For example, <code>n</code> could be <code>2 + 5</code>, which is fine, or it could be <code>2 +
+true</code>, which isn&#8217;t okay, and which the <code>checkExp</code> call in the above
+code would throw an error for.</p></div>
+<div class="paragraph"><p>If everything checks out, <code>(Array Int, Out.Iota (n_exp_dec, pos))</code> is
+returned.  Here, <code>Array Int</code> is our internal representation of the
+type <code>[int]</code>, and <code>Out.Iota (n_exp_dec, pos)</code> is an expression that
+has the same inner expression as the original <code>In.Iota (n_exp, pos)</code>,
+but type checked and decorated with a type.</p></div>
+<div class="paragraph"><p>Once you have inserted this, you can try compiling <code>iota.fo</code> again,
+but you&#8217;ll still get an <code>Unimplemented feature iota</code> error.  <em>This time</em>
+it&#8217;s because you&#8217;re missing code generation.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_interpreting">Step 4: Interpreting</h3>
+<div class="paragraph"><p>Before we get started on the code generator, we&#8217;ll take a detour in
+interpreter land.  Typically (and certainly in this case), filling in
+the interpreter code is much easier than filling in the code generator
+code.  This is because you don&#8217;t have to think about low-level MIPS
+details, and because you have the entire SML language and library at
+your fingertips.</p></div>
+<div class="paragraph"><p>In <code>Interpreter.sml</code>, find this code:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>  | evalExp ( Iota (e, pos), vtab, ftab ) =
+    raise Fail "Unimplemented feature iota"</code></pre>
+</div></div>
+<div class="paragraph"><p>Then replace it with this code:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>  | evalExp ( Iota (e, pos), vtab, ftab ) =
+        let val sz = evalExp(e, vtab, ftab)
+        in case sz of
+             IntVal size =&gt;
+                if size &gt;= 0
+                then ArrayVal(List.tabulate(size, (fn x =&gt; IntVal x)),
+                              Int)
+                else raise Error("Error: In iota call, size is negative: "
+                                 ^ Int.toString(size), pos)
+           | _ =&gt; raise Error("Iota argument is not a number: "^ppVal 0 sz, pos)
+        end</code></pre>
+</div></div>
+<div class="paragraph"><p>This piece of code first evaluates the expression in <code>iota</code>'s single
+argument.  If that is negative, it raises an error, since we cannot
+have an array with a negative length.  Otherwise, if everything&#8217;s
+good, we make good use of SML&#8217;s <code>List.tabulate</code>
+(<a href="http://mosml.org/mosmllib/List.html#tabulate-val">link</a>) to generate a
+list of the range values.</p></div>
+<div class="paragraph"><p><code>evalExp</code> outputs a value of type, well, <code>Value</code>, which you can find
+in <code>Fasto.sml</code> (but it&#8217;s already there, so don&#8217;t try to define it
+yourself).  Our <code>Iota</code> case returns a <code>Value</code> value using the
+<code>ArrayVal</code> constructor, because <code>iota</code> generates an array.</p></div>
+<div class="paragraph"><p>You can now run <code>./bin/fasto -i tests/iota.fo</code>, which should print <code>0
+1 2 3 4 5 6</code>.  If this happens, you have successfully interpreted a
+Fasto program with <code>iota</code> in it!</p></div>
+</div>
+<div class="sect2">
+<h3 id="_step_5_generating_the_mips_code">Step 5: Generating the MIPS code</h3>
+<div class="paragraph"><p>Now for the fun part.  In <code>CodeGen.sml</code>, find this part:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>  | Iota (n_exp, pos as (line, _)) =&gt;
+    raise Fail "Unimplemented feature iota"</code></pre>
+</div></div>
+<div class="paragraph"><p>We need to replace this with working code that generates a list of
+MIPS instructions which do the following:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+Check that <code>n_exp</code> isn&#8217;t negative (like it&#8217;s also checked the
+interpreter).
+</p>
+</li>
+<li>
+<p>
+Allocate space for the return array, and put the new array in the
+designated output variable <code>place</code>, which is defined in the beginning
+of the function like this: <code>fun compileExp e vtable place = ...</code>.
+</p>
+</li>
+<li>
+<p>
+Fill the allocated space with numbers <code>0, ..., n - 1</code>.
+</p>
+</li>
+<li>
+<p>
+Loop over each index in the loop, and set the value at that index.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>You can do point 1 by creatively using MIPS instructions.</p></div>
+<div class="paragraph"><p>Point 2 can be done by calling <code>dynalloc (size, place, Int)</code>
+<code>dynalloc</code> is a function in the handed out code that can allocate (but
+not free) space on a small heap that is built into every MIPS assembly
+file; see the code for detailing comments.</p></div>
+<div class="paragraph"><p>Point 3 can be achieved by making an iterator register, initializing
+it to 0, and adding a 1 to it until it reaches the the value of
+<code>n_exp</code>.</p></div>
+<div class="paragraph"><p>For point 4 you need to a label and a conditional branch instruction
+of some sort, so that you can build a loop.</p></div>
+<div class="paragraph"><p>Here is a full, heavy chunk of code (with comments) which does all
+that.  Replace the <code>raise Fail ...</code> code with this:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>  | Iota (n_exp, pos as (line, _)) =&gt;
+      let val size_reg = newName "size_reg"
+          val n_code = compileExp n_exp vtable size_reg
+          (* size_reg is now the integer n. *)
+
+          (* Check that array size N &gt;= 0:
+             if N - 1 &gt;= 0 then jumpto safe_lab
+             jumpto "_IllegalArrSizeError_"
+             safe_lab: ...
+          *)
+          val safe_lab = newName "safe_lab"
+          val checksize = [ Mips.ADDI (size_reg, size_reg, "-1")
+                          , Mips.BGEZ (size_reg, safe_lab)
+                          , Mips.LI ("5", makeConst line)
+                          , Mips.J "_IllegalArrSizeError_"
+                          , Mips.LABEL (safe_lab)
+                          , Mips.ADDI (size_reg, size_reg, "1")
+                          ]
+
+          val addr_reg = newName "addr_reg"
+          val i_reg = newName "i_reg"
+          val init_regs = [ Mips.ADDI (addr_reg, place, "4")
+                          , Mips.MOVE (i_reg, "0") ]
+          (* addr_reg is now the position of the first array element. *)
+
+          (* Run a loop.  Keep jumping back to loop_beg until it is not the
+             case that i_reg &lt; size_reg, and then jump to loop_end. *)
+          val loop_beg = newName "loop_beg"
+          val loop_end = newName "loop_end"
+          val tmp_reg = newName "tmp_reg"
+          val loop_header = [ Mips.LABEL (loop_beg)
+                            , Mips.SUB (tmp_reg, i_reg, size_reg)
+                            , Mips.BGEZ (tmp_reg, loop_end) ]
+
+          (* iota is just 'arr[i] = i'.  arr[i] is addr_reg. *)
+          val loop_iota = [ Mips.SW (i_reg, addr_reg, "0") ]
+
+          val loop_footer = [ Mips.ADDI (addr_reg, addr_reg, "4")
+                            , Mips.ADDI (i_reg, i_reg, "1")
+                            , Mips.J loop_beg
+                            , Mips.LABEL loop_end
+                            ]
+      in n_code
+         @ checksize
+         @ dynalloc (size_reg, place, Int)
+         @ init_regs
+         @ loop_header
+         @ loop_iota
+         @ loop_footer
+      end</code></pre>
+</div></div>
+<div class="paragraph"><p>Now try to compile <code>iota.fo</code> once more.  If that works, try running it
+with Mars.  This should print the same as the interpreter.</p></div>
+<div class="paragraph"><p>Do not fret if you don&#8217;t understand all of this immediately!  If
+you&#8217;re lost, try to read it part by part and figure out which parts
+exactly it is that you don&#8217;t understand.</p></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementing_code_map_code_and_code_reduce_code">Implementing <code>map</code> and <code>reduce</code></h2>
+<div class="sectionbody">
+<div class="paragraph"><p>To implement <code>map</code> and <code>reduce</code> in Fasto, you need a good
+understanding of:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+how to extend the lexer, parser, type checker, code generator, and
+   interpreter in general;
+</p>
+</li>
+<li>
+<p>
+how to generate MIPS code containing loops in particular;
+</p>
+</li>
+<li>
+<p>
+how to parse both function names, anonymous functions and operators
+for use as the first arguments in <code>map</code> and <code>reduce</code>;
+</p>
+</li>
+<li>
+<p>
+how to call a function with arguments in the code generator; and
+</p>
+</li>
+<li>
+<p>
+how to handle different types in arrays.
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>Task 1 should&#8217;ve prepared you for point 1, and the previous section
+have hopefully helped you with point 2.  The places where you&#8217;re going
+to modify code are the same as with <code>iota</code>.</p></div>
+<div class="paragraph"><p>To get help with point 3, 4 and 5, read on.</p></div>
+<div class="sect2">
+<h3 id="_parsing_functions_and_operators">Parsing functions and operators</h3>
+<div class="paragraph"><p>Both <code>map</code> and <code>reduce</code> take a function as the first argument: <code>map</code>
+takes a function of one argument, while <code>reduce</code> takes a function of
+two arguments.  Your lexer and parser must be able to handle all three
+kinds of functions:</p></div>
+<div class="olist arabic"><ol class="arabic">
+<li>
+<p>
+A function name.  This should be simple to parse.
+</p>
+</li>
+<li>
+<p>
+An anonymous function.  Recall that Fasto&#8217;s anonymous functions are
+of the form <code>fn Type ( Parameters ) =&gt; Expression</code>.  For this your
+lexer needs to handle both the <code>fn</code> and <code>=&gt;</code> lexemes similarly to how
+e.g. <code>==</code> is handled.
+</p>
+</li>
+<li>
+<p>
+An operator prefixed with "op".  Apart from updating the lexer to
+handle <code>op</code>, how would you parse this?  (This part is less important,
+so feel free to postpone it until later.)
+</p>
+</li>
+</ol></div>
+<div class="paragraph"><p>The Fasto AST already has a type for this variation of functions:
+<code>FunArg</code>.  Please use that.  Here it is for your quick reference:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>  and FunArg = Lambda of Type * Param list * Exp * pos
+             | FunName of string</code></pre>
+</div></div>
+<div class="paragraph"><p>Note that this has only two constructors&#8201;&#8212;&#8201;but there are three kinds
+of functions.  This works because an operator is essentially an
+anonymous function, i.e. it can be expressed as a <code>Lambda</code>.  How would
+you transform an operator into a <code>Lambda</code>?</p></div>
+<div class="paragraph"><p>Here&#8217;s a tip to get you started.  Insert this line in the top section
+of your <code>Parser.grm</code>:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>%type &lt;Fasto.UnknownTypes.FunArg&gt; FunArg</code></pre>
+</div></div>
+</div>
+<div class="sect2">
+<h3 id="_calling_functions_in_the_code_generator">Calling functions in the code generator</h3>
+<div class="paragraph"><p>For both <code>map</code> and <code>reduce</code>, you must be able to call the same
+function for each element in an array.  But in the code generator,
+what <em>is</em> a function?</p></div>
+<div class="paragraph"><p>Once we have ventured over to MIPS assembly land, we don&#8217;t have
+proper functions anymore, but instead we have a lot of labels.  How do
+you then call a function?  If you look at the handling of <code>Apply</code>, you
+can see that it uses the supplied function <code>applyRegs</code> to call a
+function on a list of arguments (or rather, a list of registers
+containing the argument values).</p></div>
+<div class="paragraph"><p>You too can use <code>applyRegs</code>, though this only works for a <code>FunArg</code>
+which is a named function, i.e. something of the <code>FunName</code>
+constructor.  You&#8217;ll have to figure something else out for anonymous
+functions, i.e. something of the <code>Lambda</code> constructor.</p></div>
+<div class="paragraph"><p>We recommend that you focus on getting function calling with named
+functions working, and wait with anonymous function support until
+you&#8217;re done with that.</p></div>
+</div>
+<div class="sect2">
+<h3 id="_handling_different_array_types">Handling different array types</h3>
+<div class="paragraph"><p>Different types have different value sizes:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+A <code>char</code> takes up a single byte.
+</p>
+</li>
+<li>
+<p>
+A <code>byte</code> also takes up a single byte.
+</p>
+</li>
+<li>
+<p>
+An <code>int</code> takes up 4 bytes, i.e. a MIPS32 word.
+</p>
+</li>
+<li>
+<p>
+An array type takes up a number of bytes equal to the length of the
+  array times the length of a single element in the array.
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>In <code>map</code> and <code>reduce</code>, you need to use different store and load
+instructions for <code>char/bool</code> and <code>int</code>, since they take up different
+amounts of space.  For <code>char/bool</code>, you can use <code>SB</code> and <code>LB</code> (store
+byte and load byte).  For <code>int</code>, you can use <code>SW</code> and <code>LW</code> (store word
+and load word).</p></div>
+<div class="paragraph"><p>You need storing and loading since both <code>map</code> and <code>reduce</code> writes to
+and reads from arrays.</p></div>
+<div class="paragraph"><p>It is a good idea to start with a simplified approach, where e.g. you
+only support <code>int</code> arrays in your <code>map</code> and <code>reduce</code>.  Once you get
+that working, it shouldn&#8217;t be too hard to support also <code>bool</code> and
+<code>char</code> arrays.</p></div>
+<div class="paragraph"><p>The code generator code for <code>iota</code> uses <code>SW</code> (but not <code>LW</code>, since it
+doesn&#8217;t read from anywhere, but generates all its output by itself),
+so use that for inspiration.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-05-19 17:03:31 CEST
+</div>
+</div>
+</body>
+</html>

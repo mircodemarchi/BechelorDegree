@@ -1,0 +1,10 @@
+fun int main() =
+  let a = iota(7) in
+  let tmp = write(a[0]) in
+  let tmp = write(a[1]) in
+  let tmp = write(a[2]) in
+  let tmp = write(a[3]) in
+  let tmp = write(a[4]) in
+  let tmp = write(a[5]) in
+  let tmp = write(a[6]) in
+  0

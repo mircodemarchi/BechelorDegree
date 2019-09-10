@@ -1,0 +1,2 @@
+// A simple negative test, as 'main' cannot take any arguments.
+fun int main(int t) = t

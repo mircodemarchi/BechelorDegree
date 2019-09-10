@@ -1,0 +1,4 @@
+nat n;
+for (n = 0; true; skip) {
+    nat n
+}

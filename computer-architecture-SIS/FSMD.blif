@@ -1,0 +1,199 @@
+#######################################################
+######    FSMD prima di mapparla e ottimizzarla    ####
+#######################################################
+#
+#  .model FSMD-ControlloPH
+#  .inputs INIT RESET PH7 PH6 PH5 PH4 PH3 PH2 PH1 PH0
+#  .outputs ST1 ST0 NCK7 NCK6 NCK5 NCK4 NCK3 NCK2 NCK1 NCK0 VLV1 VLV0
+#
+#  # istanziazione dell’unita' di controllo
+#  .subckt CONTROLLO CPH1=cph1 CPH0=cph0 T=TO CHANGE=CHANGE ST1=ST1 ST0=ST0 VLV1=VLV1 VLV0=VLV0
+#
+#
+#  # istanziazione dell’unita' di elaborazione (datapath) 
+#  .subckt DATAPATH INIT=INIT RESET=RESET CHANGE=CHANGE 
+#   PH7=PH7 PH6=PH6 PH5=PH5 PH4=PH4 PH3=PH3 PH2=PH2 PH1=PH1 PH0=PH0 
+#   CPH1=cph1 CPH0=cph0 T=TO 
+#   NCK7=NCK7 NCK6=NCK6 NCK5=NCK5 NCK4=NCK4 NCK3=NCK3 NCK2=NCK2 NCK1=NCK1 NCK0=NCK0
+#
+#  # file che contiene il modello del controllo 
+#  .search CONTROLLO.blif
+#  # file che contiene il modello del datapath 
+#  .search DATAPATH.blif
+# 
+#  .end
+#######################################################
+
+.model FSMD-ControlloPH
+.inputs INIT RESET PH7 PH6 PH5 PH4 PH3 PH2 PH1 PH0
+.outputs ST1 ST0 NCK7 NCK6 NCK5 NCK4 NCK3 NCK2 NCK1 NCK0 VLV1 VLV0
+.default_input_arrival 0.00 0.00 
+.default_output_required 0.00 0.00 
+.default_input_drive 0.20 0.20 
+.default_output_load 1.00 
+.default_max_input_load 999.00 
+.latch    [38052] LatchOut_v3 re NIL 1
+.latch    [38051] LatchOut_v4 re NIL 1
+.latch    [38044] reg7 re NIL 0
+.latch    [38045] reg6 re NIL 0
+.latch    [38046] reg5 re NIL 0
+.latch    [38047] reg4 re NIL 0
+.latch    [38043] reg3 re NIL 0
+.latch    [38048] reg2 re NIL 0
+.latch    [38419] reg1 re NIL 0
+.latch    [38049] reg0 re NIL 0
+.names RESET INIT [38199]
+1- 1
+-0 1
+.names PH7 [38199] [38176]
+00 1
+.names PH3 PH2 PH1 PH0 [38291]
+1--- 1
+-1-- 1
+--1- 1
+---1 1
+.names PH5 [38291] PH4 [36971]
+00- 1
+0-0 1
+.names PH6 [38191]
+0 1
+.names [38176] [36971] [38191] [38501]
+0-- 1
+-00 1
+.names [38501] [38052]
+1 1
+.names PH5 PH4 PH3 PH2 [36973]
+1111 1
+.names [36973] PH7 PH6 [37022]
+000 1
+.names [37022] [38199] [38502]
+1- 1
+-1 1
+.names [38502] [38051]
+1 1
+.names [38502] ST1
+0 1
+.names [38501] [38298]
+0 1
+.names [38298] [38502] ST1 [38501] ST0
+00-- 1
+--00 1
+.names LatchOut_v3 LatchOut_v4 [37140]
+00 1
+.names ST1 LatchOut_v4 ST0 [37140] [37132]
+0-0- 1
+-00- 1
+0--0 1
+-0-0 1
+.names [38199] [38298] LatchOut_v3 [37129]
+00- 1
+0-0 1
+.names [37132] [37129] [38210]
+0- 1
+-0 1
+.names [38210] reg7 [38211]
+1- 1
+-0 1
+.names [38211] NCK7
+0 1
+.names [38210] reg6 [38213]
+1- 1
+-0 1
+.names [38213] NCK6
+0 1
+.names [38210] reg5 [38215]
+1- 1
+-0 1
+.names [38215] NCK5
+0 1
+.names [38210] reg4 [38217]
+1- 1
+-0 1
+.names [38217] NCK4
+0 1
+.names [38210] reg3 [38219]
+1- 1
+-0 1
+.names [38210] reg2 [38221]
+1- 1
+-0 1
+.names [38221] NCK2
+0 1
+.names [38210] reg0 [38510]
+1- 1
+-0 1
+.names [38210] reg1 [38224]
+1- 1
+-0 1
+.names [38510] [38224] [38225]
+1- 1
+-1 1
+.names [38225] [38381]
+0 1
+.names NCK2 [38225] [38381] [38221] [38508]
+00-- 1
+--00 1
+.names [38219] [38508] [38221] [36970]
+000 1
+.names [38217] NCK4 [36970] [38506]
+1-1 1
+-10 1
+.names [38506] NCK4 [36974]
+01 1
+.names [38215] NCK5 [36974] [38505]
+1-1 1
+-10 1
+.names [38505] NCK5 [36975]
+01 1
+.names [38213] NCK6 [36975] [38504]
+1-1 1
+-10 1
+.names [38504] NCK6 [36976]
+01 1
+.names [38211] NCK7 [36976] [38503]
+1-1 1
+-10 1
+.names [38503] [38044]
+1 1
+.names [38504] [38045]
+1 1
+.names [38505] [38046]
+1 1
+.names [38506] [38047]
+1 1
+.names [38219] NCK3
+0 1
+.names [38508] [38381] [36977]
+01 1
+.names [38219] NCK3 [36977] [38507]
+1-1 1
+-10 1
+.names [38507] [38043]
+1 1
+.names [38508] [38048]
+1 1
+.names [38381] [38510] [38224] [36681]
+00- 1
+0-0 1
+.names [36681] [38419]
+1 1
+.names [38510] [38049]
+1 1
+.names [38224] NCK1
+0 1
+.names [38510] NCK0
+0 1
+.names NCK2 NCK1 [36681] [38423]
+0-- 1
+-00 1
+.names NCK7 NCK6 NCK5 NCK4 [37555]
+0000 1
+.names [38423] [38219] [37555] [38425]
+0-- 1
+-0- 1
+--0 1
+.names [38298] [38425] VLV1
+01 1
+.names ST1 [38425] VLV0
+01 1
+.end

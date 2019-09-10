@@ -1,0 +1,11 @@
+fun int plus100(int x) = x + 100
+fun int plus(int x, int y) = x + y
+
+fun [char] main() =
+  let n = read(int)          in // read N from the keyboard
+  let a = iota(n)            in // produce a = {0, 1, ..., n - 1}
+  let b = map(plus100, a)    in // b = {100, 101, ..., n + 99}
+  let d = reduce(plus, 0, a) in // d = 0 + 0 + 1 + 2 + ... + (n - 1)
+  let c = map(chr, b)        in // c = {'d', 'e', 'f', ...}
+  let e = write(ord(c[1]))   in // c[1] == 'e', ord('e') == 101
+  write(c)                      // output "def..." to screen

@@ -1,0 +1,169 @@
+################################################
+#####    UNITA' FUNZIONALI per datapath    #####
+################################################
+# Le seguenti unità funzionali sono utilizzate #
+# nel Datapath per eseguire funzioni di        #   
+# selezione, somma, uguaglianza e maggiore     #
+################################################
+
+
+##############################
+###      MAGGIORE 8bit     ###
+##############################
+.model MAGGIORE8
+.inputs a7 a6 a5 a4 a3 a2 a1 a0 b7 b6 b5 b4 b3 b2 b1 b0
+.outputs AgtB
+.subckt XNOR A=a7 B=b7 O=X7
+.subckt XNOR A=a6 B=b6 O=X6
+.subckt XNOR A=a5 B=b5 O=X5
+.subckt XNOR A=a4 B=b4 O=X4
+.subckt XNOR A=a3 B=b3 O=X3
+.subckt XNOR A=a2 B=b2 O=X2
+.subckt XNOR A=a1 B=b1 O=X1
+.subckt XNOR A=a0 B=b0 O=X0
+.names a7 a6 a5 a4 a3 a2 a1 a0 X7 X6 X5 X4 X3 X2 X1 X0 AgtB
+1-------0------- 1
+-1------10------ 1
+--1-----110----- 1
+---1----1110---- 1
+----1---11110--- 1
+-----1--111110-- 1
+------1-1111110- 1
+-------111111110 1
+.end
+
+##############################
+###       UGUALE 2bit      ###
+##############################
+.model UGUALE2
+.inputs a1 a0 b1 b0 
+.outputs out 
+.subckt XNOR A=a1 B=b1 O=X1 
+.subckt XNOR A=a0 B=b0 O=X0 
+.names X1 X0 out
+11 1
+.end
+
+##############################
+###      REGISTRO 2bit     ###
+##############################
+.model REGISTRO2
+.inputs i1 i0
+.outputs o1 o0
+.subckt REGISTRO1 IN=i1 OUT=o1
+.subckt REGISTRO1 IN=i0 OUT=o0
+.end
+
+##############################
+###      REGISTRO 8bit     ###
+##############################
+.model REGISTRO8
+.inputs i7 i6 i5 i4 i3 i2 i1 i0
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt REGISTRO1 IN=i7 OUT=o7
+.subckt REGISTRO1 IN=i6 OUT=o6
+.subckt REGISTRO1 IN=i5 OUT=o5
+.subckt REGISTRO1 IN=i4 OUT=o4
+.subckt REGISTRO1 IN=i3 OUT=o3
+.subckt REGISTRO1 IN=i2 OUT=o2
+.subckt REGISTRO1 IN=i1 OUT=o1
+.subckt REGISTRO1 IN=i0 OUT=o0
+.end
+
+##############################
+###     SOMMATORE 8bit     ###
+# 2 ingressi, 8 bit ciascuno #
+##############################
+.model SOMMATORE8
+.inputs a7 a6 a5 a4 a3 a2 a1 a0 b7 b6 b5 b4 b3 b2 b1 b0 CIN
+.outputs sum7 sum6 sum5 sum4 sum3 sum2 sum1 sum0 COUT
+.subckt SOMMATORE1 A=a0 B=b0 CIN=CIN SUM=sum0 COUT=C0
+.subckt SOMMATORE1 A=a1 B=b1 CIN=C0 SUM=sum1 COUT=C1
+.subckt SOMMATORE1 A=a2 B=b2 CIN=C1 SUM=sum2 COUT=C2
+.subckt SOMMATORE1 A=a3 B=b3 CIN=C2 SUM=sum3 COUT=C3
+.subckt SOMMATORE1 A=a4 B=b4 CIN=C3 SUM=sum4 COUT=C4
+.subckt SOMMATORE1 A=a5 B=b5 CIN=C4 SUM=sum5 COUT=C5
+.subckt SOMMATORE1 A=a6 B=b6 CIN=C5 SUM=sum6 COUT=C6
+.subckt SOMMATORE1 A=a7 B=b7 CIN=C6 SUM=sum7 COUT=COUT
+.end
+
+##############################
+###    MULTIPLEXER 8bit    ###
+# 2 ingressi, 2 bit ciascuno #
+##############################
+.model MUX2
+.inputs sel a1 a0 b1 b0
+.outputs o1 o0
+.subckt MUX1 A=a1 B=b1 S=sel OUT=o1
+.subckt MUX1 A=a0 B=b0 S=sel OUT=o0
+.end
+
+
+##############################
+###    MULTIPLEXER 8bit    ###
+# 2 ingressi, 8 bit ciascuno #
+##############################
+.model MUX8
+.inputs sel a7 a6 a5 a4 a3 a2 a1 a0 b7 b6 b5 b4 b3 b2 b1 b0
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt MUX1 A=a7 B=b7 S=sel OUT=o7
+.subckt MUX1 A=a6 B=b6 S=sel OUT=o6
+.subckt MUX1 A=a5 B=b5 S=sel OUT=o5
+.subckt MUX1 A=a4 B=b4 S=sel OUT=o4
+.subckt MUX1 A=a3 B=b3 S=sel OUT=o3
+.subckt MUX1 A=a2 B=b2 S=sel OUT=o2
+.subckt MUX1 A=a1 B=b1 S=sel OUT=o1
+.subckt MUX1 A=a0 B=b0 S=sel OUT=o0
+.end
+
+##############################
+###  SOMMATORE ELEMENTARE  ###
+# 2 ingressi, 1 bit ciascuno #
+##############################
+.model SOMMATORE1
+.inputs A B CIN
+.outputs SUM COUT
+.names A B K
+10 1
+01 1
+.names K CIN SUM
+10 1
+01 1
+.names A B CIN COUT
+11- 1
+1-1 1
+-11 1
+.end
+
+##############################
+### MULTIPLEXER ELEMENTARE ###
+# 2 ingressi, 1 bit ciascuno #
+##############################
+.model MUX1
+.inputs A B S
+.outputs OUT
+.names S A B OUT
+11- 1
+0-1 1
+.end
+
+##############################
+###   REGISTRO ELEMENTARE  ###
+##############################
+.model REGISTRO1
+.inputs IN
+.outputs OUT
+.latch IN OUT re NIL 0
+.end
+
+##############################
+###          XNOR          ###
+##############################
+.model XNOR
+.inputs A B
+.outputs O
+.names A B O
+00 1
+11 1
+.end
+

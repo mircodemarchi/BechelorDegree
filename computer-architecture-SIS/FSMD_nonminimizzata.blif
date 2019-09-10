@@ -1,0 +1,17 @@
+.model FSMD-ControlloPH
+.inputs INIT RESET PH7 PH6 PH5 PH4 PH3 PH2 PH1 PH0
+.outputs ST1 ST0 NCK7 NCK6 NCK5 NCK4 NCK3 NCK2 NCK1 NCK0 VLV1 VLV0
+
+# istanziazione dell’unita' di controllo
+.subckt CONTROLLO CPH1=cph1 CPH0=cph0 T=TO CHANGE=CHANGE ST1=ST1 ST0=ST0 VLV1=VLV1 VLV0=VLV0
+
+
+# istanziazione dell’unita' di elaborazione (datapath) 
+.subckt DATAPATH INIT=INIT RESET=RESET CHANGE=CHANGE PH7=PH7 PH6=PH6 PH5=PH5 PH4=PH4 PH3=PH3 PH2=PH2 PH1=PH1 PH0=PH0 CPH1=cph1 CPH0=cph0 T=TO NCK7=NCK7 NCK6=NCK6 NCK5=NCK5 NCK4=NCK4 NCK3=NCK3 NCK2=NCK2 NCK1=NCK1 NCK0=NCK0
+
+# file che contiene il modello del controllo 
+.search CONTROLLO.blif
+# file che contiene il modello del datapath 
+.search DATAPATH.blif
+
+.end

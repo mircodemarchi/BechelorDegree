@@ -1,0 +1,96 @@
+
+#############################################
+####        COSTANTI per datapath        ####
+#############################################
+# Le seguenti costanti servono per          #
+# determinare il PH considerando che il     #
+# range di misura è compreso tra 0 e 14 con #
+# risoluzione di 0,1; di conseguenza per    #
+# determinare il valore corretto del PH in  #
+# base 10 bisogna interpretare il valore in #
+# modulo, poi fare diviso 10 e il risultato #
+# sarà il PH in input corretto.             #
+#############################################
+
+.model OTTOZERO8
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt ZERO1 out=o7
+.subckt UNO1 out=o6
+.subckt ZERO1 out=o5
+.subckt UNO1 out=o4
+.subckt ZERO1 out=o3
+.subckt ZERO1 out=o2
+.subckt ZERO1 out=o1
+.subckt ZERO1 out=o0
+.end
+
+.model SEIZERO8
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt ZERO1 out=o7
+.subckt ZERO1 out=o6
+.subckt UNO1 out=o5
+.subckt UNO1 out=o4
+.subckt UNO1 out=o3
+.subckt UNO1 out=o2
+.subckt ZERO1 out=o1
+.subckt ZERO1 out=o0
+.end
+
+#############################################
+# Le seguenti costanti sono interpretate in #
+# modulo con 8 bit e verranno utilizzate    #
+# nel contatore del Datapath                #
+#############################################
+
+.model ZERO8
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt ZERO1 out=o7
+.subckt ZERO1 out=o6
+.subckt ZERO1 out=o5
+.subckt ZERO1 out=o4
+.subckt ZERO1 out=o3
+.subckt ZERO1 out=o2
+.subckt ZERO1 out=o1
+.subckt ZERO1 out=o0
+.end
+
+.model UNO8
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt ZERO1 out=o7
+.subckt ZERO1 out=o6
+.subckt ZERO1 out=o5
+.subckt ZERO1 out=o4
+.subckt ZERO1 out=o3
+.subckt ZERO1 out=o2
+.subckt ZERO1 out=o1
+.subckt UNO1 out=o0
+.end
+
+.model QUATTRO8
+.outputs o7 o6 o5 o4 o3 o2 o1 o0
+.subckt ZERO1 out=o7
+.subckt ZERO1 out=o6
+.subckt ZERO1 out=o5
+.subckt ZERO1 out=o4
+.subckt ZERO1 out=o3
+.subckt UNO1 out=o2
+.subckt ZERO1 out=o1
+.subckt ZERO1 out=o0
+.end
+
+
+#############################
+#### COSTANTI Elementari ####
+#############################
+
+.model ZERO1
+.outputs out
+.names out
+.end
+
+.model UNO1
+.outputs out
+.names out
+1
+.end
+

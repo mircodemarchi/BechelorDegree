@@ -1,0 +1,12 @@
+nat n;
+n = 5;
+
+nat r;
+r = 1;
+
+nat x;
+for (x = 1; x <= n; x = x + 1) {
+    r = r * x
+};
+
+out(r)

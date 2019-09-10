@@ -1,0 +1,6 @@
+fun bool no_way() = no_way()
+
+fun bool main() =
+  let a = write(false && no_way()) in
+  let b = write(true || no_way()) in
+  true

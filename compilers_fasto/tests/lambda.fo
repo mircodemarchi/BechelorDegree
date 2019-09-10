@@ -1,0 +1,10 @@
+fun int write_int(int x) = write(x)
+
+fun [int] write_int_arr([int] x) = map(write_int, x)
+
+fun int main() =
+  let N = read(int) in
+  let z = iota(N) in
+  let w = write_int_arr(map(fn int (int x) => x + 2, z)) in
+  let nl = write("\n") in
+  write_int(reduce(op+, 0, w))

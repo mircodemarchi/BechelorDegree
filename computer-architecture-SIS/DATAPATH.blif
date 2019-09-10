@@ -1,0 +1,177 @@
+.model DATAPATH
+.inputs INIT RESET CHANGE PH7 PH6 PH5 PH4 PH3 PH2 PH1 PH0
+.outputs CPH1 CPH0 T NCK7 NCK6 NCK5 NCK4 NCK3 NCK2 NCK1 NCK0
+
+#############################################
+####          BLOCCO SELEZIONE 1         ####
+####            init su reset            ####
+#############################################
+# MUX che seleziona tra la costante 1 e     #
+# RESET in base a INIT.                     #
+# Se RESET va a 1, la macchina deve         #
+# resettarsi, ma se INIT vale 0 (quindi     #
+# macchina spenta) vuol dire che RESET deve #
+# valere 1 in qualsiasi caso.               #
+# L'output di questo blocco è IR(Init/Reset)#
+# e sarà il selettore per ottenere lo stato #
+# di reset della macchina, cioè lo stato in #
+# cui tutte le uscite devono essere 0.      #
+# IR sarà selettore per il Mux che dà CPH[2]#
+# e il Mux che dà NCK[8]                    #
+#############################################
+
+##      MUX per cui INIT controlla RESET           ##
+# Se INIT vale 1 passa la costante 1, se INIT       #
+# vale 0 passa RESET, che è un input del datapath   #
+# quindi può valere sia 1 sia 0.                    #
+.subckt UNO1 out=uno0
+.subckt MUX1 A=RESET B=uno0 S=INIT OUT=IR
+
+
+#############################################
+####         BLOCCO CONTROLLO PH         ####
+#############################################
+# Ricevo in input il PH in modulo con       #
+# risoluzione 0,1 e determino con due       #
+# blocchi "MAGGIORE8" se il PH si trova nel #
+# range del neutro, del acido o del basico. #
+#############################################
+
+## COSTANTE 6,0 e COSTANTE 8,0 (in modulo 60 e 80) ##
+# 	     il nome "c" sta per costante           #
+.subckt SEIZERO8 o7=c15 o6=c14 o5=c13 o4=c12 o3=c11 o2=c10 o1=c9 o0=c8
+.subckt OTTOZERO8 o7=c7 o6=c6 o5=c5 o4=c4 o3=c3 o2=c2 o1=c1 o0=c0
+
+## CONTROLLO 6>PH (ovvero PH<6) e CONTROLLO PH>8   ##
+#         come output a questo controllo ho         #
+#          acidbasic formato da 2 bit:              #
+#         10 = acido  ---> 01 nella fsm             #
+#         01 = basico ---> 11 nella fsm             #
+#         00 = neutro ---> 10 nella fsm             #
+.subckt MAGGIORE8 a7=c15 a6=c14 a5=c13 a4=c12 a3=c11 a2=c10 a1=c9 a0=c8 b7=PH7 b6=PH6 b5=PH5 b4=PH4 b3=PH3 b2=PH2 b1=PH1 b0=PH0 AgtB=acidbasic1
+.subckt MAGGIORE8 a7=PH7 a6=PH6 a5=PH5 a4=PH4 a3=PH3 a2=PH2 a1=PH1 a0=PH0 b7=c7 b6=c6 b5=c5 b4=c4 b3=c3 b2=c2 b1=c1 b0=c0 AgtB=acidbasic0
+
+
+#############################################
+####          BLOCCO SELEZIONE 2         ####
+####       acidbasic/stato di reset      ####
+#############################################
+# MUX che seleziona tra acidbasic oppure 11,#
+# valore che dalla fsm sarà interpretato    #
+# come lo stato di reset.                   #
+# Infatti questa selezione viene fatta      #
+# dalla variabile IR, cioè l'uscita del     #
+# blocco INIT/RESET.                        #
+# L'uscita di questo blocco sarà CPH a 2    #
+# bit, che poi sarà un ingresso della fsm.  #
+# CPH[2] può essere:                        #
+#       10 = acido  ---> 01 nella fsm       #
+#       01 = basico ---> 11 nella fsm       #
+#       00 = neutro ---> 10 nella fsm       #
+#       11 = reset  ---> 00 nella fsm       #
+# cioè le stesse uscite di acidbasic ma con #
+# l'aggiunta dell'uscita reset.             #
+#############################################	  
+
+##        COSTANTE UNOUNO DI RESET a 2bit          ##
+.subckt UNO1 out=uno2
+.subckt UNO1 out=uno1
+
+##                MUX a 2bit                       ##
+# se il selettore (IR) è 1, faccio passare 11       #
+# (stato di reset), altrimenti faccio               #
+# passare acidbasic.                                #
+.subckt MUX2 sel=IR a1=uno2 a0=uno1 b1=acidbasic1 b0=acidbasic0 o1=CPH1 o0=CPH0 
+
+
+
+#############################################
+####   BLOCCO CONTEGGIO cicli di clock    ###
+#############################################
+# Uso la variabile "uguale" come selettore  #
+# per far partire il conteggio o per        #
+# resettarlo a 0.                           #
+# Dunque questo blocco sarà formato da un   #
+# MUX iniziale, un SOMMATORE il quale       #
+# incrementa di 1 il valore di ingresso e   #
+# un REGISTRO per salvare tale somma.       #
+#############################################
+
+##                ZERO a 8 bit                    ##
+# Nel caso in cui il selettore "uguale" è 0, devo  #
+# resettare il conteggio con questa variabile.     #
+# L'uscita "z" sta per zero.                       #
+.subckt ZERO8 o7=z7 o6=z6 o5=z5 o4=z4 o3=z3 o2=z2 o1=z1 o0=z0
+
+##                UNO a 8 bit                     ##
+# Valore da inserire al sommatore che mi permette  #
+# di incrementare di 1 in conteggio.               #
+# L'uscita "u" sta per uno.                        #
+.subckt UNO8 o7=u7 o6=u6 o5=u5 o4=u4 o3=u3 o2=u2 o1=u1 o0=u0
+
+##                  ZERO[1]                       ##
+# serve per  il CIN (riporto in ingresso) del      #
+# sommatore.                                       # 
+.subckt ZERO1 out=ZERO 
+
+##                  MUX a 8 bit                   ##
+# Se il selettore "uguale" dà 1 (quindi uguale CPH)#
+# continuo il conteggio, quindi faccio passare il  #
+# valore reg[8] che è l'uscita del registro che    #
+# salva il valore di somma, altrimenti se "uguale" #
+# è 0 (cioè CPH diverso) allora lascio passare     #
+# z[8] (zero).                                     #
+# L'uscita del MUX è NCK.                          #
+.subckt MUX8 sel=CHANGE a7=z7 a6=z6 a5=z5 a4=z4 a3=z3 a2=z2 a1=z1 a0=z0 b7=reg7 b6=reg6 b5=reg5 b4=reg4 b3=reg3 b2=reg2 b1=reg1 b0=reg0 o7=NCK7 o6=NCK6 o5=NCK5 o4=NCK4 o3=NCK3 o2=NCK2 o1=NCK1 o0=NCK0 
+
+
+##               SOMMATORE a 8 bit                ##
+# Sommatore che somma NCK[8] e uno[8].              #
+# L'uscita "s" sta per somma.                      #
+.subckt SOMMATORE8 a7=NCK7 a6=NCK6 a5=NCK5 a4=NCK4 a3=NCK3 a2=NCK2 a1=NCK1 a0=NCK0 b7=u7 b6=u6 b5=u5 b4=u4 b3=u3 b2=u2 b1=u1 b0=u0 CIN=ZERO sum7=s7 sum6=s6 sum5=s5 sum4=s4 sum3=s3 sum2=s2 sum1=s1 sum0=s0 COUT=COUT
+
+##                REGISTRO a 8 bit                ##
+# Registro che salva il valore della somma "s" e   #
+# al clock successivo la manda al Mux. Il registro #
+# serve anche per non creare una condizione di     #
+# ciclo nel sommatore e negli operatori successivi.#
+# L'uscita "reg" sta per registro.                 #
+.subckt REGISTRO8 i7=s7 i6=s6 i5=s5 i4=s4 i3=s3 i2=s2 i1=s1 i0=s0 o7=reg7 o6=reg6 o5=reg5 o4=reg4 o3=reg3 o2=reg2 o1=reg1 o0=reg0
+
+
+
+#############################################
+####        BLOCCO FINE 5 CICLI          ####
+#############################################
+# Controllo quando il valore di NCK[8] è    #
+# maggiore di 4. Il controllo è fatto sulla #
+# costante 4, perchè per completare i 5     #
+# cicli di clock devo considerare anche il  #
+# ritardo dovuto al REGISTRO inserito dopo  #
+# il sommatore. Quindi per arrivare a       #
+# completare i 5 cicli e "accendere" la     #
+# variabile T[1] in uscita esattamente      #
+# al sesto ciclo ho bisogno che NCK[8] sia  #
+# maggiore di 4.                            #
+#############################################
+
+##              COSTANTE 4 a 8 bit                ##
+# Costante 4 a 8 bit inserita nel secondo ingresso #
+# dell'operatore "MAGGIORE8".                      #
+# L'uscita "q" sta per quattro.                    #
+.subckt QUATTRO8 o7=q7 o6=q6 o5=q5 o4=q4 o3=q3 o2=q2 o1=q1 o0=q0
+
+##              MAGGIORE a 8 bit                  ##
+# Controllo se nc[8] è maggiore di q[8].           #
+# L'uscita T[1] è una uscita del datapath e un     #
+# ingresso della fsm.                              #
+.subckt MAGGIORE8 a7=NCK7 a6=NCK6 a5=NCK5 a4=NCK4 a3=NCK3 a2=NCK2 a1=NCK1 a0=NCK0 b7=q7 b6=q6 b5=q5 b4=q4 b3=q3 b2=q2 b1=q1 b0=q0 AgtB=T      
+    
+
+.search operatori.blif
+.search costanti.blif
+
+.end
+
+
+

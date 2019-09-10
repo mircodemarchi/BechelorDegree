@@ -1,0 +1,19 @@
+fun int plus5(int x) = x + 5
+
+fun int mul2(int x) = x + x
+
+fun [int] testcomp([int] x) = write_int_arr(write_int_arr(x))
+
+fun int write_int(int x) = write(x)
+
+fun [int] write_int_arr([int] x) = map(write_int, x)
+
+fun [int] boo([int] a) = let x = (let y = 5 + 3 in map(plus5, a)) in x
+
+fun [int] main() =
+  let N = read(int) in
+  let z = iota(N) in
+  let q = (let z = N + N in N + N + N) in
+  let y = boo(z) in
+  let w = map(mul2, y) in
+  write_int_arr(w)

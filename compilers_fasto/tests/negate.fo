@@ -1,0 +1,11 @@
+fun bool write_nl(bool b) =
+  let res = write(b) in
+  let tmp = write("\n") in
+  res
+
+fun bool main() =
+  let x0 = write_nl(3 / 2 == 1) in
+  let x1 = write_nl(~3 / 2 == ~2) in
+  let x2 = write_nl(3 /~2 == ~2) in
+  let x3 = write_nl(~3 /~2 == 1) in
+  write_nl(x0 && x1 && x2 && x3)

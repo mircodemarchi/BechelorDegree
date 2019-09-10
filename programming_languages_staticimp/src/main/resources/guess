@@ -1,0 +1,13 @@
+nat g;
+g = 3;
+
+nat attempt;
+attempt = 0;
+
+nat x;
+do {
+    attempt = attempt + 1;
+    nd(x = 0, nd(x = 1, nd(x = 2, nd(x = 3, nd(x = 4, x = 5)))))
+} while (x != g);
+
+out(attempt)

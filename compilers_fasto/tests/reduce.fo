@@ -1,0 +1,5 @@
+fun int incr(int a, int b) = a + b
+
+fun int main() =
+  let n = reduce(incr, 0, {1, 2, 3}) in
+  write(n)

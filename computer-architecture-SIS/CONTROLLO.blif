@@ -1,0 +1,75 @@
+.model CONTROLLO
+.inputs CPH1 CPH0 T
+.outputs CHANGE ST1 ST0 VLV1 VLV0
+
+.latch    [46] LatchOut_v3   1
+.latch    [47] LatchOut_v4   1
+
+
+
+.start_kiss
+.i 3
+.o 5
+.p 18
+.s 4
+.r R
+
+
+########################################
+####               FSM              ####
+########################################
+
+11- R R 10000
+10- R A 10100
+00- R N 11000
+01- R B 11100
+11- A R 10000
+100 A A 00100
+01- A B 11100
+101 A A 00101
+00- A N 11000
+11- N R 10000
+10- N A 10100
+00- N N 01000
+01- N B 11100
+11- B R 10000
+10- B A 10100
+011 B B 01110
+00- B N 11000
+010 B B 01100
+
+.end_kiss
+
+
+
+.latch_order LatchOut_v3 LatchOut_v4
+
+.code R 11
+.code A 01
+.code N 00
+.code B 10
+
+.names CPH1 CPH0 [46]
+11 1
+01 1
+.names CPH1 CPH0 [47]
+11 1
+10 1
+.names CPH1 CPH0 LatchOut_v3 LatchOut_v4 CHANGE
+11-- 1
+-01- 1
+-10- 1
+0--1 1
+1--0 1
+.names CPH1 ST1
+0 1
+.names CPH1 CPH0 ST0
+01 1
+10 1
+.names CPH1 CPH0 T LatchOut_v3 LatchOut_v4 VLV1
+01110 1
+.names CPH1 CPH0 T LatchOut_v3 LatchOut_v4 VLV0
+10101 1
+
+.end
+

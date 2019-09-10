@@ -1,0 +1,44 @@
+fun int read_int(int i) =
+  let t = write("Introduce number ") in
+  let t = write(i) in
+  let t = write(": ") in
+  let n = read(int) in
+  let t = write("\n") in
+  n
+
+fun [int] read_int_arr(int n) =
+  let itsp = iota(n) in
+  map(read_int, itsp)
+
+fun int write_int(int i) = write(i)
+
+fun bool write_int_arr([int] arr) =
+  let a = write(" { ") in
+  let v = map(write_int, arr) in
+  let a = write(" }\n") in
+  true
+
+fun int max(int x, int y) = if (x < y) then y else x
+
+fun [int] mapper(int x) =
+  let xm = max(x, 0) in
+  {xm, xm, xm, x}
+
+fun [int] reducer([int] a, [int] b) =
+  let mss = max(max(a[0], b[0]), a[2] + b[1]) in
+  let mis = max(a[1], a[3] + b[1]) in
+  let mcs = max(a[2] + b[3], b[2]) in
+  let ts = a[3] + b[3]
+  in {mss, mis, mcs, ts}
+
+fun [int] mssp(int n) =
+  let in_arr = read_int_arr(n) in
+  // let inarr = {1, 0 - 2, 3, 4, 0 - 1, 5, 0 - 6, 1} in
+  let map_arr = map(mapper, in_arr) in
+  let ne = {0, 0, 0, 0}
+  in reduce(reducer, ne, map_arr)
+
+fun int main() =
+  let arr = mssp(8) in
+  let t = write("\n\nMSSP result is: ") in
+  write(arr[0])

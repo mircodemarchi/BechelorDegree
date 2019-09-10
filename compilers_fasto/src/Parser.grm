@@ -1,0 +1,157 @@
+%{
+
+(* A parser definition for Fasto, for use with mosmlyac. *)
+
+open Fasto
+open Fasto.UnknownTypes
+
+(* @author De Marchi Mirco
+   @date   25-05-2019
+   @brief  Parser for true, false, multiplication, division, and, or,
+           boolean negation and integer negation.
+
+  ============================ Start of my code ==============================
+       Exp :   ...
+
+               | BOOLEAN        { Constant (BoolVal (#1 $1), #2 $1)}
+
+               ...
+
+               | Exp TIMES Exp  { Times($1, $3, $2)  }
+               | Exp DIVIDE Exp { Divide($1, $3, $2) }
+               | Exp AND Exp    { And($1, $3, $2)    }
+               | Exp OR Exp     { Or($1, $3, $2)     }
+               | NOT Exp        { Not($2, $1)        }
+               | NEGATE Exp     { Negate($2, $1)     }
+
+               ...
+       ;
+  ============================================================================
+                                                                              *)
+%}
+
+%token <(int*int)> IF THEN ELSE LET IN INT BOOL CHAR EOF
+%token <string*(int*int)> ID STRINGLIT
+%token <int*(int*int)> NUM
+%token <char*(int*int)> CHARLIT
+%token <(int*int)> PLUS MINUS DEQ EQ LTH
+%token <(int*int)> LPAR RPAR LBRACKET RBRACKET LCURLY RCURLY
+%token <(int*int)> COMMA
+%token <(int*int)> FUN READ WRITE
+
+%{(*========================== Start of my code ============================*)%}
+%{(* @author De Marchi Mirco
+     @date   25-05-2019
+     @brief  Precedence rules.                                              *)%}
+%token <bool*(int*int)> BOOLEAN
+%token <(int*int)> TIMES DIVIDE AND OR NOT NEGATE
+%token <(int*int)> IOTA MAP REDUCE
+%token <(int*int)> FN
+%token <(int*int)> ARROW
+
+%nonassoc ifprec letprec
+%left OR
+%left AND
+%left NOT
+%left DEQ LTH
+%left PLUS MINUS
+%left TIMES DIVIDE
+%left NEGATE
+%{(*========================================================================*)%}
+
+%start Prog
+%type <Fasto.UnknownTypes.Prog> Prog
+%type <Fasto.UnknownTypes.FunDec list> FunDecs
+%type <Fasto.UnknownTypes.FunDec> Fun
+%type <Fasto.Type> Type
+%type <Fasto.Param list> Params
+%type <Fasto.UnknownTypes.Exp> Exp
+%type <Fasto.UnknownTypes.Exp list> Exps
+
+%type <Fasto.UnknownTypes.FunArg> FunArg
+
+%%
+
+Prog :    FunDecs EOF   { $1 }
+;
+
+FunDecs : FUN Fun FunDecs   { $2 :: $3 }
+        | FUN Fun           { $2 :: [] }
+;
+
+FunArg : ID { FunName(#1 $1) }
+       | FN Type LPAR RPAR ARROW Exp
+            { Lambda($2, [], $6, $1)}
+       | FN Type LPAR Params RPAR ARROW Exp
+            { Lambda($2, $4, $7, $1)}
+
+Fun :     Type ID LPAR Params RPAR EQ Exp
+          { FunDec (#1 $2, $1, $4, $7, #2 $2) }
+        | Type ID LPAR RPAR EQ Exp
+          { FunDec (#1 $2, $1, [], $6, #2 $2) }
+;
+
+Type :    INT           { Int }
+        | BOOL          { Bool }
+        | CHAR          { Char }
+        | LBRACKET Type RBRACKET { Array $2 }
+;
+
+Params : Type ID COMMA Params
+                       { Param (#1 $2, $1) :: $4 }
+       | Type ID       { Param (#1 $2, $1) :: [] }
+;
+
+
+Exp :     NUM            { Constant (IntVal (#1 $1), #2 $1) }
+
+        | BOOLEAN        { Constant (BoolVal (#1 $1), #2 $1) }
+
+        | CHARLIT        { Constant (CharVal (#1 $1), #2 $1) }
+        | ID             { Var $1 }
+        | STRINGLIT      { StringLit $1 }
+        | LCURLY Exps RCURLY
+                         { ArrayLit ($2, (), $1) }
+        | Exp PLUS  Exp  { Plus ($1, $3, $2) }
+        | Exp MINUS Exp  { Minus($1, $3, $2) }
+
+        | Exp TIMES Exp  { Times($1, $3, $2)  }
+        | Exp DIVIDE Exp { Divide($1, $3, $2) }
+        | Exp AND Exp    { And($1, $3, $2)    }
+        | Exp OR Exp     { Or($1, $3, $2)     }
+        | NOT Exp        { Not($2, $1)        }
+        | NEGATE Exp     { Negate($2, $1)     }
+
+        | Exp DEQ   Exp  { Equal($1, $3, $2) }
+        | Exp LTH   Exp  { Less ($1, $3, $2) }
+        | IF Exp THEN Exp ELSE Exp %prec ifprec
+                         { If ($2, $4, $6, $1) }
+        | ID LPAR Exps RPAR
+                        { Apply (#1 $1, $3, #2 $1) }
+
+        | ID LPAR RPAR  { Apply (#1 $1, [], #2 $1) }
+
+        | IOTA LPAR Exp RPAR
+                        { Iota ($3, $1) }
+
+        | MAP LPAR FunArg COMMA Exp RPAR
+                        { Map ($3, $5, (), (), $1) }
+
+        | REDUCE LPAR FunArg COMMA Exp COMMA Exp RPAR
+                        { Reduce ($3, $5, $7, (), $1) }
+
+        | READ LPAR Type RPAR
+                        { Read ($3, $1) }
+        | WRITE LPAR Exp RPAR
+                        { Write ($3, (), $1) }
+
+        | LPAR Exp RPAR { $2 }
+        | LET ID EQ Exp IN Exp %prec letprec
+                        { Let (Dec (#1 $2, $4, $3), $6, $1) }
+        | ID LBRACKET Exp RBRACKET
+                        { Index (#1 $1, $3, (), $2) }
+;
+
+Exps : Exp COMMA Exps   { $1 :: $3 }
+    |  Exp              { $1 :: [] }
+;
