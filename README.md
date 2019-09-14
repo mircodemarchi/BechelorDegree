@@ -15,8 +15,8 @@ Bachelor's degree in Computer Science projects
 
 - Third year
     - [signal-image-processing-video-stabilization](./signal-image-processing-video-stabilization): Video Stabilization's Matlab project for Signal and Image Processing course
-    - [compilers_fasto](./compilers_fasto): SML interpreter of Fasto language for Compilers course
-    - [programming_languages_staticimp](./programming_languages_staticimp): Java Antlr interpreter of staticimp language for Programming Language course
+    - [compilers-fasto](./compilers-fasto): SML interpreter of Fasto language for Compilers course
+    - [programming-languages-staticimp](./programming-languages-staticimp): Java Antlr interpreter of staticimp language for Programming Language course
 
 
 <br>
