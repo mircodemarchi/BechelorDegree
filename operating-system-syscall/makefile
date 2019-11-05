@@ -2,11 +2,10 @@
 #MakeFile's name: makefile
 NAME:= key_finder
 PROGRAM:= $(NAME)
-BINDIR:= ./bin
 BUILDDIR:= ./build
 SRCDIR:= ./src
 
-LINKFLAGS:=
+LINKFLAGS:= -pthread
 CFLAGS:= -c
 
 #object files
@@ -16,15 +15,15 @@ SRCTHREAD:= $(SRCDIR)/main.c $(SRCDIR)/padre.c $(SRCDIR)/logger.c $(SRCDIR)/figl
 OBJSTHREAD:= $(SRCTHREAD:$(SRCDIR)%.c=$(BUILDDIR)%.o)
 
 
-all: $(BINDIR)/$(PROGRAM)
+all: $(BUILDDIR)/$(PROGRAM)
 
-$(BINDIR)/$(PROGRAM): $(OBJS)
+$(BUILDDIR)/$(PROGRAM): $(OBJS)
 	@echo Linking $^
 	$(CC) $(LINKFLAGS) -o $@ $^
 
-threads: $(BINDIR)/$(PROGRAM)_thread
+threads: $(BUILDDIR)/$(PROGRAM)_thread
 
-$(BINDIR)/$(PROGRAM)_thread: $(OBJSTHREAD)
+$(BUILDDIR)/$(PROGRAM)_thread: $(OBJSTHREAD)
 	@echo Linking $^
 	$(CC) $(LINKFLAGS) -o $@ $^
 
@@ -33,26 +32,36 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 clean:
-	@echo Removing $(BUILDDIR)/*.o and $(BINDIR)/*
+	@echo Removing $(BUILDDIR)/*.o and $(BUILDDIR)/$(PROGRAM)*
 	@rm $(BUILDDIR)/*.o
-	@rm $(BINDIR)/*
+	@rm $(BUILDDIR)/$(PROGRAM)*
 
-install: $(BINDIR)/$(PROGRAM)
+install: $(BUILDDIR)/$(PROGRAM)
 	@echo Installing $(PROGRAM)
-	@cp $(BINDIR)/$(PROGRAM) /bin
+	@cp $(BUILDDIR)/$(PROGRAM) /bin
+	
+installthreads: $(BUILDDIR)/$(PROGRAM)_thread
+	@echo Installing $(PROGRAM)_thread
+	@cp $(BUILDDIR)/$(PROGRAM)_thread /bin
 
 help:
 	@echo Target:
-	@echo all
-	@echo clean
-	@echo install
-	@echo help
-	@echo doc
-	@echo thread
-	@echo threadclean
+	@echo "all           - Compila tutti i target"
+	@echo "clean         - Pulisce i file intermedi e l'eseguibile"
+	@echo "install       - Copia l'eseguibile nella cartella bin"
+	@echo "installthread - Copia l'eseguibile con thread nella cartella bin"
+	@echo "help          - Mostra i comandi utilizzabili"
+	@echo "doc           - Genera la documentazione"
+	@echo "openhtml      - Apre HTML generato dalla documentazione"
+	@echo "thread        - Compila tutti i target con thread"
 
 doc:
 	@echo Generating documentation:
+	doxygen doxygen.cfg
+
+openhtml:
+	@echo Opening html:
+	firefox ./doc/html/index.html &
 
 
-.PHONY: all clean install help doc threads
+.PHONY: all clean install help doc openhtml threads installthreads

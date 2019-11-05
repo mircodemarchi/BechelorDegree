@@ -1,20 +1,30 @@
-/// @file
-/// @author De Marchi Mirco
+/**
+ * @file
+ * @author De Marchi Mirco
+ *
+ * Il processo logger esegue in sequenza le seguenti operazioni:
+ *
+ * 1) Richiama la get() per il semaforo SEM2 per poter bloccare il processo padre e 
+ * creare il processo figlio
+ *
+ * 2) Crea la coda di messaggi MSG1, identificata dalla chiave 21
+ *
+ * 3) Fa l'unlock() del semaforo SEM2
+ *
+ * 4) Inizia l'analisi della coda di messaggi (polling receive) fino a quando riceverà un messaggio di tipo 1
+ *
+ * 5) Chiude la coda di messaggi MSG1
+ *
+ * 6) Termina
+ */
 
-/// @defgroup Funzioni del processo logger
+/// @defgroup processo_logger Funzioni del processo logger
 /// @{
 #ifndef LOGGER
 #define LOGGER
 
 /**
  * @brief Wrapper del processo logger
- * @brief Il processo logger esegue in sequenza le seguenti operazioni:
- * 1) Richiama la get() per il semaforo SEM2 per poter bloccare il processo padre e creare il processo figlio
- * 2) Crea la coda di messaggi MSG1, identificata dalla chiave 21
- * 3) Fa l'unlock() del semaforo SEM2
- * 4) Inizia l'analisi della coda di messaggi (polling receive) fino a quando riceverà un messaggio di tipo 1
- * 5) Chiude la coda di messaggi MSG1
- * 6) Termina
  */
 void logger();
 

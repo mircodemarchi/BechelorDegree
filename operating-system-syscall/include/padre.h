@@ -1,7 +1,29 @@
-/// @file
-/// @author De Marchi Mirco
+/**
+ * @file
+ * @author De Marchi Mirco
+ *
+ * Il processo Padre esegue in sequenza le seguenti operazioni:
+ *
+ * 1) Viene creato un segmento di memoria condivisa (SHM1), identificato dalla chiave 11, dentro il quale viene 
+ * inserito il contenuto del file di input
+ *
+ * 2) Crea e fa l'attach di un ulteriore segmento di memoria condivisa (SHM2), identificato dalla chiave 12, che poi conterrà le chiavi
+ * di decriptazione trovate dai sottoprocessi
+ *
+ * 3) Genera i sottoprocessi logger e figlio
+ *
+ * 4) Aspetta che i due sottoprocessi finiscano la loro esecuzione
+ *
+ * 5) Controlla se le chiavi trovate sono corrette
+ *
+ * 6) Copia le chiavi dal segmento di memoria condivisa SHM2 sul file di file di output
+ *
+ * 7) Rimuove SHM1 e SHM2
+ *
+ * 8) Termina
+ */
 
-/// @defgroup Funzioni del processo padre
+/// @defgroup processo_padre Funzioni del processo padre
 /// @{
 #ifndef PADRE
 #define PADRE
@@ -11,16 +33,6 @@
 
 /**
  * @brief Wrapper del processo Padre
- * @brief Il processo Padre esegue in sequenza le seguenti operazioni:
- * 1) Viene creato un segmento di memoria condivisa (SHM1), identificato dalla chiave 11, dentro il quale viene inserito il contenuto del file di input
- * 2) Crea e fa l'attach di un ulteriore segmento di memoria condivisa (SHM2), identificato dalla chiave 12, che poi conterrà le chiavi
- * di decriptazione trovate dai sottoprocessi
- * 3) Genera i sottoprocessi logger e figlio
- * 4) Aspetta che i due sottoprocessi finiscano la loro esecuzione
- * 5) Controlla se le chiavi trovate sono corrette
- * 6) Copia le chiavi dal segmento di memoria condivisa SHM2 sul file di file di output
- * 7) Rimuove SHM1 e SHM2
- * 8) Termina
  * @param file_input Stringa del path del file da leggere in input
  * @param file_output Stringa del path del file da scrivere in output
  */

@@ -1,3 +1,52 @@
+/**
+ * @file
+ * @author De Marchi Mirco
+ * 
+ * Il processo nipote esegue in sequenza le seguenti operazioni:
+ *
+ * 1) Ricava tramite una get e una attach l'indirizzo della SHM1 e SHM2, identificate rispettivamente dalle chiavi 11 e 12
+ *
+ * 2) Ricava tramite una get l'id del semaforo SEM1, identificato dalla chiave 31
+ *
+ * 3) Entra in un ciclo che continua finchè ci sono stringhe da analizzare
+ *
+ * 4) Fa la lock() sul semaforo SEM1 e accede alla sezione critica
+ *
+ * 5) Legge l'indice della stringa che deve analizzare dalla struttura Status
+ *
+ * 6) Scrive sulla struttura Status il proprio id nipote e incrementa l'indice 
+ * alla stringa da analizzare
+ *
+ * 7) Invia il segnale SIGUSR1 al processo figlio
+ *
+ * 8) Tramite l'indice della stringa ricava l'indirizzo della SHM1 da cui parte 
+ * la stringa che deve analizzare
+ *
+ * 9) Trova gli indirizzi delle stringhe plaintext ed encodedtext e li traduce in unsigned int
+ *
+ * 10) Trova la chiave memorizzando quanto tempo ci impiega
+ *
+ * 11) Salva la chiave nella SHM2
+ *
+ * 12) Accede alla coda di messaggi MSG1, identificata dalla chiave 21, per inviare 
+ * un messaggio con i tempi di ritrovamento della chiave
+ *
+ * 13) Se le stringhe da analizzare sono finite termina, altrimenti analizza la prossima stringa
+ *
+ *
+ * Attenzione:
+ * 
+ * La lunghezza dell'array di unsigned int è pari alla lunghezza della
+ * stringa diviso 4, perchè 4 caratteri della stringa corrispondono
+ * a 1 unsigned int.
+ *
+ *  char = 1 byte
+ *
+ *  unsigned int = 4 byte
+ */
+
+/// @defgroup processo_nipote Funzioni del processo nipote
+/// @{
 #ifndef NIPOTE
 #define NIPOTE
 
@@ -6,20 +55,6 @@
 
 /**
  * @brief Wrapper del processo nipote
- * @brief Il processo nipote esegue in sequenza le seguenti operazioni:
- * 1) Ricava tramite una get e una attach l'indirizzo della SHM1 e SHM2, identificate rispettivamente dalle chiavi 11 e 12
- * 2) Ricava tramite una get l'id del semaforo SEM1, identificato dalla chiave 31
- * 3) Entra in un ciclo che continua finchè ci sono stringhe da analizzare
- * 4) Fa la lock() sul semaforo SEM1 e accede alla sezione critica
- * 5) Legge l'indice della stringa che deve analizzare dalla struttura Status
- * 6) Scrive sulla struttura Status il proprio id nipote e incrementa l'indice alla stringa da analizzare
- * 7) Invia il segnale SIGUSR1 al processo figlio
- * 8) Tramite l'indice della stringa ricava l'indirizzo della SHM1 da cui parte la stringa che deve analizzare
- * 9) Trova gli indirizzi delle stringhe plaintext ed encodedtext e li traduce in unsigned int
- * 10) Trova la chiave memorizzando quanto tempo ci impiega
- * 11) Salva la chiave nella SHM2
- * 12) Accede alla coda di messaggi MSG1, identificata dalla chiave 21, per inviare un messaggio con i tempi di ritrovamento della chiave
- * 13) Se le stringhe da analizzare sono finite termina, altrimenti analizza la prossima stringa
  * @param x ID del processo nipote
  * @param nrow Numero di righe del file di input salvato sulla memoria condivisa SHM1
  */
@@ -139,3 +174,4 @@ void time_to_string(long int time, char *str, int length);
 void toHexadecimal(unsigned int uinteger, char *hex, int length);
 
 #endif
+/// @}

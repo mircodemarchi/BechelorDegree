@@ -1,7 +1,7 @@
 /// @file
 /// @author De Marchi Mirco
 
-/// @defgroup Funzioni di supporto mylib
+/// @defgroup mylib Funzioni di supporto mylib
 /// @{
 #ifndef MYLIB
 #define MYLIB

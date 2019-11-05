@@ -1,46 +1,76 @@
-/// @file
-/// @author De Marchi Mirco
-
-/// @defgroup Funzioni del processo figlio_thread
+/**
+ * @file
+ * @author De Marchi Mirco
+ *
+ * Il processo figlio per le thread esegue in sequenza le seguenti operazioni:
+ *
+ * 1) Registra la funzione status_updated come signal handler del segnale SIGUSR1
+ *
+ * 2) Crea un semaforo SEM1, identificato dalla chiave 31, per poter sincronizzare i processi 
+ * nipoti per la scrittura sulla memoria condivisa SHM1 della struttura Status
+ *
+ * 3) Esegue le thread
+ *
+ * 4) Aspetta che le thread concludano la loro esecuzione
+ *
+ * 5) Invia un messaggio nella MSG1 dicendo che la ricerca delle chiavi è stata conclusa
+ *
+ * 6) Chiude il semaforo SEM1
+ *
+ * 7) Termina 
+ */
+ 
+/// @defgroup procesaso_figlio_thread Funzioni del processo figlio_thread
 /// @{
-#ifndef FIGLIO
-#define FIGLIO
-
-typedef struct thread_args{
-    int id_thread;
-} thread_args;
+#ifndef FIGLIOTHREAD
+#define FIGLIOTHREAD
 
 /**
- * @brief Wrapper del processo figlio
- * @brief Il processo figlio esegue in sequenza le seguenti operazioni:
- * 1) Registra la funzione status_updated come signal handler del segnale SIGUSR1
- * 2) Crea un semaforo SEM1, identificato dalla chiave 31, per poter sincronizzare i processi nipoti per la scrittura
- * sulla memoria condivisa SHM1 della struttura Status
- * 3) Esegue le thread
- * 4) Aspetta che le thread concludano la loro esecuzione
- * 5) Invia un messaggio nella MSG1 dicendo che la ricerca delle chiavi è stata conclusa
- * 6) Chiude il semaforo SEM1
- * 7) Termina
- * @param nrow Numero di righe del file di input salvato sulla memoria condivisa SHM1
+ * @brief Wrapper del processo figlio con implementazione delle thread
+ * @param row Numero di righe del file di input salvato sulla memoria condivisa SHM1
  */
 void figlio(int nrow);
 
 /**
  * @brief Wrapper della funzione eseguita dalla thread
  * @brief La thread esegue in sequenza le seguenti operazioni:
+ *
  * 1) Ricava tramite una get e una attach l'indirizzo della SHM1 e SHM2, identificate rispettivamente dalle chiavi 11 e 12
+ *
  * 2) Ricava tramite una get l'id del semaforo SEM1, identificato dalla chiave 31
+ *
  * 3) Entra in un ciclo che continua finchè ci sono stringhe da analizzare
+ *
  * 4) Fa la lock() sul semaforo SEM1 e accede alla sezione critica
+ *
  * 5) Legge l'indice della stringa che deve analizzare dalla struttura Status
+ *
  * 6) Scrive sulla struttura Status il proprio id e incrementa l'indice alla stringa da analizzare
+ *
  * 7) Invia il segnale SIGUSR1 al processo figlio
+ *
  * 8) Tramite l'indice della stringa ricava l'indirizzo della SHM1 da cui parte la stringa che deve analizzare
+ *
  * 9) Trova gli indirizzi delle stringhe plaintext ed encodedtext e li traduce in unsigned int
+ *
  * 10) Trova la chiave memorizzando quanto tempo ci impiega
+ *
  * 11) Salva la chiave nella SHM2
+ *
  * 12) Accede alla coda di messaggi MSG1, identificata dalla chiave 21, per inviare un messaggio con i tempi di ritrovamento della chiave
+ *
  * 13) Se le stringhe da analizzare sono finite termina, altrimenti analizza la prossima stringa
+ *
+ * Attenzione:
+ * 
+ * La lunghezza dell'array di unsigned int è pari alla lunghezza della
+ * stringa diviso 4, perchè 4 caratteri della stringa corrispondono
+ * a 1 unsigned int.
+ *
+ *  char = 1 byte
+ *
+ *  unsigned int = 4 byte
+ * @param x ID del processo nipote
  * @param x ID del processo nipote
  * @param nrow Numero di righe del file di input salvato sulla memoria condivisa SHM1
  */

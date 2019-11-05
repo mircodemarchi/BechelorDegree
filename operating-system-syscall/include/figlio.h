@@ -1,22 +1,34 @@
-/// @file
-/// @author De Marchi Mirco
+/**
+ * @file
+ * @author De Marchi Mirco
+ *
+ * Il processo figlio esegue in sequenza le seguenti operazioni:
+ *
+ * 1) Registra la funzione status_updated come signal handler del segnale SIGUSR1
+ *
+ * 2) Crea un semaforo SEM1, identificato dalla chiave 31, per poter sincronizzare 
+ * i processi nipoti 
+ * per la scrittura sulla memoria condivisa SHM1 della struttura Status
+ *
+ * 3) Fa la fork() dei due processi nipote: nipote(1) e nipote(2)
+ *
+ * 4) Aspetta che i processi nipote concludano la loro esecuzione
+ *
+ * 5) Invia un messaggio nella MSG1 dicendo che la ricerca delle chiavi è stata conclusa
+ *
+ * 6) Chiude il semaforo SEM1
+ *
+ * 7) Termina
+ */
+ 
 
-/// @defgroup Funzioni del processo figlio
+/// @defgroup processo_figlio Funzioni del processo figlio
 /// @{
 #ifndef FIGLIO
 #define FIGLIO
 
 /**
  * @brief Wrapper del processo figlio
- * @brief Il processo figlio esegue in sequenza le seguenti operazioni:
- * 1) Registra la funzione status_updated come signal handler del segnale SIGUSR1
- * 2) Crea un semaforo SEM1, identificato dalla chiave 31, per poter sincronizzare i processi nipoti per la scrittura
- * sulla memoria condivisa SHM1 della struttura Status
- * 3) Fa la fork() dei due processi nipote: nipote(1) e nipote(2)
- * 4) Aspetta che i processi nipote concludano la loro esecuzione
- * 5) Invia un messaggio nella MSG1 dicendo che la ricerca delle chiavi è stata conclusa
- * 6) Chiude il semaforo SEM1
- * 7) Termina
  * @param nrow Numero di righe del file di input salvato sulla memoria condivisa SHM1
  */
 void figlio(int nrow);
